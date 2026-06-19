@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shariq Farooq Reshi — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0f1c;
+    --bg2: #111827;
+    --bg3: #1a2235;
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --accent-glow: rgba(59,130,246,0.15);
+    --text: #f1f5f9;
+    --text2: #94a3b8;
+    --text3: #64748b;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(59,130,246,0.3);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --mono: 'Fira Code', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,15,28,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--accent2);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--text2); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 14px; color: var(--text2); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 clamp(1.5rem, 8vw, 8rem);
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    border: 0.5px solid var(--border2);
+    border-radius: 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent2);
+    background: var(--accent-glow);
+    margin-bottom: 1.5rem;
+  }
+  .badge-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-name {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .hero-name .accent { color: var(--accent2); }
+
+  .hero-role {
+    font-family: var(--mono);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--text2);
+    margin-bottom: 1.25rem;
+  }
+  .hero-role .cursor {
+    display: inline-block;
+    width: 2px; height: 1em;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--text2);
+    max-width: 520px;
+    margin-bottom: 2rem;
+    line-height: 1.75;
+  }
+
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .btn-primary {
+    padding: 11px 26px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+  .btn-outline {
+    padding: 11px 26px;
+    background: transparent;
+    color: var(--text2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.1s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-1px); }
+
+  .hero-socials { display: flex; gap: 14px; }
+  .social-link {
+    width: 38px; height: 38px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text3); text-decoration: none;
+    font-size: 18px;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .social-link:hover { border-color: var(--accent2); color: var(--accent2); background: var(--accent-glow); }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem clamp(1.5rem, 8vw, 8rem); }
+  section:nth-child(even) { background: var(--bg2); }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: var(--text2);
+    max-width: 480px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* ── SKILLS ── */
+  .skills-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+  }
+  .skill-card {
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1rem;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .skill-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(59,130,246,0.1);
+  }
+  .skill-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--accent-glow);
+    border: 0.5px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .skill-name { font-size: 13px; font-weight: 500; color: var(--text2); text-align: center; }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(59,130,246,0.1);
+  }
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+  .project-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--accent-glow);
+    border: 0.5px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(59,130,246,0.12);
+    border: 0.5px solid var(--border2);
+    color: var(--accent2);
+  }
+  .project-title { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .project-desc { font-size: 14px; color: var(--text2); line-height: 1.65; flex: 1; margin-bottom: 1.25rem; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid var(--border);
+    color: var(--text3);
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--accent2);
+    text-decoration: none; margin-top: 1rem;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 9px; }
+
+  /* ── EDUCATION ── */
+  .edu-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .edu-card {
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--border2); }
+  .edu-deg {
+    font-family: var(--mono);
+    font-size: 12px; color: var(--accent); margin-bottom: 8px;
+  }
+  .edu-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .edu-sub { font-size: 14px; color: var(--text2); }
+  .edu-badge {
+    display: inline-block; margin-top: 14px;
+    padding: 4px 12px; border-radius: 20px;
+    background: rgba(59,130,246,0.1); border: 0.5px solid var(--border2);
+    font-size: 12px; color: var(--accent2);
+  }
+
+  /* ── CONTACT ── */
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .contact-intro { font-size: 16px; color: var(--text2); line-height: 1.75; }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 1rem 1.25rem;
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    color: var(--text);
+  }
+  .contact-item:hover { border-color: var(--border2); background: var(--accent-glow); }
+  .contact-icon { font-size: 20px; color: var(--accent2); width: 24px; text-align: center; }
+  .contact-label { font-size: 11px; color: var(--text3); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.07em; }
+  .contact-val { font-size: 14px; color: var(--text); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 0.5px solid var(--border);
+    padding: 2rem clamp(1.5rem, 8vw, 8rem);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: var(--text3);
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer a { color: var(--text3); text-decoration: none; }
+  footer a:hover { color: var(--accent2); }
+  .footer-mono { font-family: var(--mono); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .contact-wrap { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { justify-content: center; }
+  }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero"><span>~/</span>shariq<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Available for opportunities
+    </div>
+    <h1 class="hero-name">Shariq<br/><span class="accent">Farooq Reshi</span></h1>
+    <p class="hero-role">Full Stack Web Developer<span class="cursor"></span></p>
+    <p class="hero-desc">
+      I craft modern, performant web experiences — from pixel-perfect interfaces
+      to robust backend APIs. BCA &amp; MCA graduate passionate about clean code
+      and scalable systems.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        View Projects
+      </a>
+      <a href="mailto:shariqfarooq.xr@gmail.com" class="btn-outline">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+        Get in Touch
+      </a>
+    </div>
+    <div class="hero-socials">
+      <a class="social-link" href="https://github.com/shariqfarooq" target="_blank" aria-label="GitHub">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.912.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.944.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .268.18.579.688.481C19.138 20.2 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/></svg>
+      </a>
+      <a class="social-link" href="https://www.linkedin.com/in/shariq-farooq-reshi/" target="_blank" aria-label="LinkedIn">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="social-link" href="mailto:shariqfarooq.xr@gmail.com" aria-label="Email">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">01 — about</div>
+    <h2 class="section-title">Who I am</h2>
+    <div style="max-width:720px; display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+      <div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:1rem;">
+          I'm Shariq Farooq Reshi, a Full Stack Web Developer based in Srinagar, J&K, India.
+          With an MCA postgraduate degree and solid BCA foundation, I bring both theoretical depth
+          and practical experience to every project.
+        </p>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8;">
+          I specialize in the JavaScript ecosystem — building reactive frontends with React
+          and scalable backends with Node.js and Express, backed by MySQL databases.
+          I care deeply about developer experience, code quality, and shipping products that work.
+        </p>
+      </div>
+      <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:1rem;">profile.json</div>
+        <pre style="font-family:var(--mono);font-size:12.5px;color:var(--text2);line-height:1.8;white-space:pre-wrap;">{
+  "name": "Shariq Farooq Reshi",
+  "role": "Full Stack Developer",
+  "edu": ["BCA", "MCA"],
+  "location": "Srinagar, J&K",
+  "open_to": "opportunities",
+  "passion": "clean code"
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <div class="section-label">02 — skills</div>
+    <h2 class="section-title">Tech Stack</h2>
+    <p class="section-sub">Tools and technologies I work with daily to build modern web applications.</p>
+    <div class="skills-wrapper">
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <span class="skill-name">HTML5</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <span class="skill-name">CSS3</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <span class="skill-name">JavaScript</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚛️</div>
+        <span class="skill-name">React</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌬️</div>
+        <span class="skill-name">Tailwind CSS</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🟢</div>
+        <span class="skill-name">Node.js</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🛤️</div>
+        <span class="skill-name">Express.js</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <span class="skill-name">MySQL</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔀</div>
+        <span class="skill-name">Git</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐙</div>
+        <span class="skill-name">GitHub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">03 — projects</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-sub">A selection of projects that showcase my full-stack development capabilities.</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon">🛒</div>
+          <span class="project-tag">Full Stack</span>
+        </div>
+        <div class="project-title">E-Commerce Platform</div>
+        <div class="project-desc">A complete online shopping application featuring product listings, shopping cart, order management, and user authentication with JWT.</div>
+        <div class="project-stack">
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">Express</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">Tailwind</span>
+        </div>
+        <a href="https://github.com/shariqfarooq" class="project-link" target="_blank">
+          View on GitHub →
+        </a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon">📝</div>
+          <span class="project-tag">Full Stack</span>
+        </div>
+        <div class="project-title">Blog CMS</div>
+        <div class="project-desc">A content management system where users can create, edit, and publish blog posts with a rich-text editor and admin dashboard.</div>
+        <div class="project-stack">
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">Express</span>
+          <span class="stack-tag">MySQL</span>
+        </div>
+        <a href="https://github.com/shariqfarooq" class="project-link" target="_blank">
+          View on GitHub →
+        </a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon">🔌</div>
+          <span class="project-tag">Backend</span>
+        </div>
+        <div class="project-title">REST API Service</div>
+        <div class="project-desc">A production-grade RESTful API with JWT authentication, role-based access control, full CRUD operations, and rate limiting.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">Express</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">JWT</span>
+        </div>
+        <a href="https://github.com/shariqfarooq" class="project-link" target="_blank">
+          View on GitHub →
+        </a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon">👤</div>
+          <span class="project-tag">Frontend</span>
+        </div>
+        <div class="project-title">Developer Portfolio</div>
+        <div class="project-desc">A responsive personal portfolio website with smooth animations, dark theme, and optimized performance — the one you're looking at right now.</div>
+        <div class="project-stack">
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+        <a href="https://github.com/shariqfarooq" class="project-link" target="_blank">
+          View on GitHub →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="reveal">
+    <div class="section-label">04 — education</div>
+    <h2 class="section-title">Academic Background</h2>
+    <p class="section-sub">A strong foundation in computer science and software engineering.</p>
+    <div class="edu-cards">
+      <div class="edu-card">
+        <div class="edu-deg">postgraduate · MCA</div>
+        <div class="edu-title">Master of Computer Applications</div>
+        <div class="edu-sub">Advanced study in software engineering, algorithms, database systems, networking, and enterprise application development.</div>
+        <div class="edu-badge">🎓 Completed</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">undergraduate · BCA</div>
+        <div class="edu-title">Bachelor of Computer Applications</div>
+        <div class="edu-sub">Core foundation in programming, data structures, web development, operating systems, and mathematics for computing.</div>
+        <div class="edu-badge">🎓 Completed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">05 — contact</div>
+    <h2 class="section-title">Let's Work Together</h2>
+    <div class="contact-wrap">
+      <div>
+        <p class="contact-intro">
+          I'm open to freelance projects, full-time roles, and interesting collaborations.
+          Whether you have a project in mind or just want to say hello — my inbox is always open.
+        </p>
+        <div style="margin-top:1.5rem;font-family:var(--mono);font-size:13px;color:var(--text3);">
+          📍 Srinagar, Jammu &amp; Kashmir, India
+        </div>
+      </div>
+      <div class="contact-links">
+        <a class="contact-item" href="mailto:shariqfarooq.xr@gmail.com">
+          <span class="contact-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+          </span>
+          <div>
+            <div class="contact-label">email</div>
+            <div class="contact-val">shariqfarooq.xr@gmail.com</div>
+          </div>
+        </a>
+        <a class="contact-item" href="https://github.com/shariqfarooq" target="_blank">
+          <span class="contact-icon">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.912.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.944.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .268.18.579.688.481C19.138 20.2 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/></svg>
+          </span>
+          <div>
+            <div class="contact-label">github</div>
+            <div class="contact-val">github.com/shariqfarooq</div>
+          </div>
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/shariq-farooq-reshi/" target="_blank">
+          <span class="contact-icon">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </span>
+          <div>
+            <div class="contact-label">linkedin</div>
+            <div class="contact-val">linkedin.com/in/shariq-farooq-reshi</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-mono" style="color:var(--text3);">© 2025 Shariq Farooq Reshi</span>
+  <span style="color:var(--text3);">Designed & built with ❤️ in Srinagar</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
